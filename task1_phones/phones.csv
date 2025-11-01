@@ -1,0 +1,11 @@
+name;price;image;release_date;lte_exists
+iPhone X;73999;https://www.ixbt.com/img/n1/news/2017/10/3/apple-iphone-x-64gb_large.jpg;2017-11-03;true
+iPhone 8;56999;https://www.ixbt.com/img/n1/news/2017/9/0/ip8-gold-select-2017_large.jpg;2017-09-22;true
+Samsung Galaxy S10;47999;https://images.samsung.com/is/image/samsung/p6pim/ru/sm-g973fzkdser/gallery/ru-galaxy-s10-sm-g973-sm-g973fzkdser-frontblack-thumb-154971428;2019-03-08;true
+Samsung Galaxy Note 10;59999;https://images.samsung.com/is/image/samsung/p6pim/ru/sm-n970fzkdser/gallery/ru-galaxy-note10-n970-sm-n970fzkdser-frontblack-thumb-171024545;2019-08-23;true
+Xiaomi Mi 9;29999;https://cdn.citilink.ru/bYKbRXAt24205sIH6P0qEzCrFrS9w_MTPySo0ySH0yU/resizing_type:fit/gravity:sm/width:400/height:400/plain/product-images/8fbb1a2b-c27f-4931-b53e-f93f5e31e54f.jpg;2019-02-20;true
+Huawei P30 Pro;49999;https://consumer.huawei.com/content/dam/huawei-cbg-site/common/mkt/pdp/phones/p30-pro/specs/p30-pro-black.png;2019-03-26;true
+Google Pixel 4;54999;https://lh3.googleusercontent.com/proxy/YqXPXUmh7K1h5J_jHQvMDJxIH2fF5zFrxG8zqB9Dq4K1Q8v1qHIJ7sO5KqH5Q1v1zH5Q1;2019-10-24;true
+OnePlus 7 Pro;44999;https://image01.oneplus.net/ebp/201905/14/1-m00-1d-5f-rb8bwlzbdoqagvklaae0tknivwe913.png;2019-05-14;true
+Sony Xperia 1;54999;https://www.sony.ru/image/5e5c3c5c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c;2019-06-14;true
+LG G8 ThinQ;39999;https://www.lg.com/ru/images/mobile-phones/md07504877/gallery/D-01-v01.jpg;2019-04-11;true

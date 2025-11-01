@@ -1,0 +1,151 @@
+{% extends 'books/base.html' %}
+
+{% block title %}{{ book.name }} - Онлайн-библиотека{% endblock %}
+
+{% block extra_css %}
+<style>
+    .book-detail {
+        padding: 20px 0;
+    }
+    .book-header {
+        margin-bottom: 30px;
+        padding: 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 8px;
+    }
+    .book-header h2 {
+        font-size: 2.5em;
+        margin-bottom: 15px;
+    }
+    .book-info {
+        background: #f9f9f9;
+        padding: 30px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+    .info-row {
+        padding: 15px 0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .info-row:last-child {
+        border-bottom: none;
+    }
+    .info-label {
+        color: #666;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .info-value {
+        color: #333;
+        font-size: 1.2em;
+    }
+    .navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        gap: 10px;
+    }
+    .nav-btn {
+        padding: 12px 24px;
+        background: #667eea;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: all 0.3s;
+        display: inline-block;
+    }
+    .nav-btn:hover {
+        background: #5568d3;
+        transform: translateY(-2px);
+    }
+    .nav-btn.disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+    .books-same-date {
+        margin-top: 40px;
+        padding: 20px;
+        background: #fff9e6;
+        border-left: 4px solid #ffb800;
+        border-radius: 5px;
+    }
+    .books-same-date h3 {
+        color: #333;
+        margin-bottom: 15px;
+    }
+    .books-same-date ul {
+        list-style: none;
+    }
+    .books-same-date li {
+        padding: 8px 0;
+        border-bottom: 1px solid #ffe680;
+    }
+    .books-same-date li:last-child {
+        border-bottom: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'books:book_list' %}" class="back-link">← Вернуться к списку книг</a>
+
+<div class="book-detail">
+    <div class="book-header">
+        <h2>{{ book.name }}</h2>
+        <p style="font-size: 1.3em;">Автор: {{ book.author }}</p>
+    </div>
+    
+    <div class="book-info">
+        <div class="info-row">
+            <div class="info-label">📅 Дата публикации</div>
+            <div class="info-value">{{ book.pub_date|date:"d E Y года" }}</div>
+        </div>
+        
+        <div class="info-row">
+            <div class="info-label">✍️ Автор</div>
+            <div class="info-value">{{ book.author }}</div>
+        </div>
+        
+        <div class="info-row">
+            <div class="info-label">📖 Название</div>
+            <div class="info-value">{{ book.name }}</div>
+        </div>
+    </div>
+    
+    {% if books_on_date.count > 1 %}
+    <div class="books-same-date">
+        <h3>Другие книги, опубликованные {{ book.pub_date|date:"d E Y" }}:</h3>
+        <ul>
+            {% for other_book in books_on_date %}
+                {% if other_book.id != book.id %}
+                <li>
+                    <strong>{{ other_book.name }}</strong> - {{ other_book.author }}
+                </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    
+    <div class="navigation">
+        {% if previous_date %}
+            <a href="{% url 'books:book_detail' previous_date %}" class="nav-btn">
+                ← Предыдущая дата ({{ previous_date|date:"d.m.Y" }})
+            </a>
+        {% else %}
+            <span class="nav-btn disabled">← Предыдущая дата</span>
+        {% endif %}
+        
+        {% if next_date %}
+            <a href="{% url 'books:book_detail' next_date %}" class="nav-btn">
+                Следующая дата ({{ next_date|date:"d.m.Y" }}) →
+            </a>
+        {% else %}
+            <span class="nav-btn disabled">Следующая дата →</span>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

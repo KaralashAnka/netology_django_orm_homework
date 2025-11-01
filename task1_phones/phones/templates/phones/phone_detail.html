@@ -1,0 +1,103 @@
+{% extends 'phones/base.html' %}
+
+{% block title %}{{ phone.name }} - Каталог телефонов{% endblock %}
+
+{% block extra_css %}
+<style>
+    .phone-detail {
+        display: flex;
+        gap: 30px;
+        margin-top: 20px;
+    }
+    .phone-image {
+        flex: 0 0 400px;
+    }
+    .phone-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .phone-info {
+        flex: 1;
+    }
+    .phone-info h2 {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 2em;
+    }
+    .info-row {
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
+    }
+    .info-row:last-child {
+        border-bottom: none;
+    }
+    .info-label {
+        color: #666;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .info-value {
+        color: #333;
+        font-size: 1.1em;
+    }
+    .price-large {
+        color: #007bff;
+        font-size: 2em;
+        font-weight: bold;
+        margin: 20px 0;
+    }
+    .lte-yes {
+        color: #28a745;
+        font-weight: bold;
+    }
+    .lte-no {
+        color: #dc3545;
+    }
+    @media (max-width: 768px) {
+        .phone-detail {
+            flex-direction: column;
+        }
+        .phone-image {
+            flex: none;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'phones:phone_list' %}" class="back-link">← Вернуться к списку</a>
+
+<div class="phone-detail">
+    <div class="phone-image">
+        <img src="{{ phone.image }}" alt="{{ phone.name }}" onerror="this.src='https://via.placeholder.com/400x400?text=No+Image'">
+    </div>
+    <div class="phone-info">
+        <h2>{{ phone.name }}</h2>
+        
+        <div class="price-large">{{ phone.price }} ₽</div>
+        
+        <div class="info-row">
+            <div class="info-label">Дата выпуска:</div>
+            <div class="info-value">{{ phone.release_date|date:"d E Y" }}</div>
+        </div>
+        
+        <div class="info-row">
+            <div class="info-label">Поддержка LTE:</div>
+            <div class="info-value {% if phone.lte_exists %}lte-yes{% else %}lte-no{% endif %}">
+                {% if phone.lte_exists %}
+                    ✓ Да
+                {% else %}
+                    ✗ Нет
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="info-row">
+            <div class="info-label">Slug:</div>
+            <div class="info-value">{{ phone.slug }}</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

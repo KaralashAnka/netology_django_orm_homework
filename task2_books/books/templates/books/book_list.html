@@ -1,0 +1,118 @@
+{% extends 'books/base.html' %}
+
+{% block title %}Онлайн-библиотека{% endblock %}
+
+{% block extra_css %}
+<style>
+    .sort-buttons {
+        margin-bottom: 30px;
+        display: flex;
+        gap: 10px;
+    }
+    .sort-btn {
+        padding: 10px 20px;
+        border: 2px solid #667eea;
+        background: white;
+        color: #667eea;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s;
+    }
+    .sort-btn:hover {
+        background: #667eea;
+        color: white;
+    }
+    .sort-btn.active {
+        background: #667eea;
+        color: white;
+    }
+    .books-list {
+        display: grid;
+        gap: 20px;
+    }
+    .book-item {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
+        transition: all 0.3s;
+        background: #f9f9f9;
+    }
+    .book-item:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transform: translateY(-3px);
+    }
+    .book-item h3 {
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 1.5em;
+    }
+    .book-item .author {
+        color: #666;
+        font-style: italic;
+        margin-bottom: 10px;
+    }
+    .book-item .date {
+        color: #667eea;
+        font-weight: bold;
+    }
+    .book-item a {
+        color: inherit;
+        text-decoration: none;
+    }
+    .no-books {
+        text-align: center;
+        padding: 60px 20px;
+        color: #666;
+    }
+    .no-books p {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+    }
+    .admin-link {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #667eea;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .admin-link:hover {
+        background: #5568d3;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>📚 Онлайн-библиотека</h1>
+
+<div class="sort-buttons">
+    <a href="?order=pub_date" class="sort-btn {% if current_order == 'pub_date' %}active{% endif %}">
+        Сортировать по дате
+    </a>
+    <a href="?order=name" class="sort-btn {% if current_order == 'name' %}active{% endif %}">
+        Сортировать по названию
+    </a>
+</div>
+
+{% if books %}
+    <div class="books-list">
+        {% for book in books %}
+        <div class="book-item">
+            <a href="{% url 'books:book_detail' book.pub_date %}">
+                <h3>{{ book.name }}</h3>
+                <div class="author">Автор: {{ book.author }}</div>
+                <div class="date">Дата публикации: {{ book.pub_date|date:"d E Y" }}</div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="no-books">
+        <p>📖 В библиотеке пока нет книг</p>
+        <p>Добавьте книги через административную панель</p>
+        <a href="/admin/" class="admin-link">Перейти в админ-панель</a>
+    </div>
+{% endif %}
+{% endblock %}
