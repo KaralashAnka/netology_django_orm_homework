@@ -4,11 +4,31 @@ from .models import Phone
 
 def phone_list(request):
     """
-    Представление для отображения списка всех телефонов.
+    Представление для отображения списка всех телефонов с возможностью сортировки.
+    
+    Query параметры:
+        sort: 'name' - сортировка по названию
+              'price' - сортировка по цене
+              'min_price' - сортировка по цене (по возрастанию)
+              'max_price' - сортировка по цене (по убыванию)
     """
-    phones = Phone.objects.all()
+    # Получаем параметр сортировки из GET запроса
+    sort_by = request.GET.get('sort', 'name')
+    
+    # Определяем порядок сортировки
+    if sort_by == 'name':
+        phones = Phone.objects.all().order_by('name')
+    elif sort_by == 'min_price':
+        phones = Phone.objects.all().order_by('price')
+    elif sort_by == 'max_price':
+        phones = Phone.objects.all().order_by('-price')
+    else:
+        # По умолчанию сортировка по названию
+        phones = Phone.objects.all().order_by('name')
+    
     context = {
-        'phones': phones
+        'phones': phones,
+        'current_sort': sort_by,
     }
     return render(request, 'phones/phone_list.html', context)
 

@@ -4,6 +4,34 @@
 
 {% block extra_css %}
 <style>
+    .sort-buttons {
+        margin-bottom: 30px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .sort-btn {
+        padding: 10px 20px;
+        border: 2px solid #007bff;
+        background: white;
+        color: #007bff;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s;
+        font-size: 14px;
+    }
+    .sort-btn:hover {
+        background: #007bff;
+        color: white;
+        transform: translateY(-2px);
+    }
+    .sort-btn.active {
+        background: #007bff;
+        color: white;
+        box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+    }
     .phone-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -64,6 +92,18 @@
 
 {% block content %}
 <h1>Каталог телефонов</h1>
+
+<div class="sort-buttons">
+    <a href="?sort=name" class="sort-btn {% if current_sort == 'name' %}active{% endif %}">
+        📝 По названию
+    </a>
+    <a href="?sort=min_price" class="sort-btn {% if current_sort == 'min_price' %}active{% endif %}">
+        💰 Сначала дешёвые
+    </a>
+    <a href="?sort=max_price" class="sort-btn {% if current_sort == 'max_price' %}active{% endif %}">
+        💎 Сначала дорогие
+    </a>
+</div>
 
 {% if phones %}
     <div class="phone-grid">
